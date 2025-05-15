@@ -1,0 +1,155 @@
+---
+Organizations:
+  - &OrdererOrg
+    Name: OrdererOrg
+    ID: OrdererMSP
+    MSPDir: crypto-config/ordererOrganizations/example.com/msp
+
+  - &CompanyA
+    Name: CompanyA
+    ID: CompanyAMSP
+    MSPDir: crypto-config/peerOrganizations/companyA.example.com/msp
+    AnchorPeers:
+      - Host: peer0.companyA.example.com
+        Port: 7051
+
+  - &CompanyB
+    Name: CompanyB
+    ID: CompanyBMSP
+    MSPDir: crypto-config/peerOrganizations/companyB.example.com/msp
+    AnchorPeers:
+      - Host: peer0.companyB.example.com
+        Port: 7051
+
+  - &CompanyC
+    Name: CompanyC
+    ID: CompanyCMSP
+    MSPDir: crypto-config/peerOrganizations/companyC.example.com/msp
+    AnchorPeers:
+      - Host: peer0.companyC.example.com
+        Port: 7051
+
+  - &SupplierX
+    Name: SupplierX
+    ID: SupplierXMSP
+    MSPDir: crypto-config/peerOrganizations/supplierX.example.com/msp
+    AnchorPeers:
+      - Host: peer0.supplierX.example.com
+        Port: 7051
+
+  - &SupplierY
+    Name: SupplierY
+    ID: SupplierYMSP
+    MSPDir: crypto-config/peerOrganizations/supplierY.example.com/msp
+
+  - &SupplierZ
+    Name: SupplierZ
+    ID: SupplierZMSP
+    MSPDir: crypto-config/peerOrganizations/supplierZ.example.com/msp
+
+  - &Logistics1
+    Name: Logistics1
+    ID: Logistics1MSP
+    MSPDir: crypto-config/peerOrganizations/logistics1.example.com/msp
+
+  - &Logistics2
+    Name: Logistics2
+    ID: Logistics2MSP
+    MSPDir: crypto-config/peerOrganizations/logistics2.example.com/msp
+
+  - &Regulatory
+    Name: Regulatory
+    ID: RegulatoryMSP
+    MSPDir: crypto-config/peerOrganizations/regulatory.example.com/msp
+
+  - &BankA
+    Name: BankA
+    ID: BankAMSP
+    MSPDir: crypto-config/peerOrganizations/bankA.example.com/msp
+
+  - &BankB
+    Name: BankB
+    ID: BankBMSP
+    MSPDir: crypto-config/peerOrganizations/bankB.example.com/msp
+
+Orderer: &OrdererDefaults
+  OrdererType: etcdraft
+  Addresses:
+    - orderer.example.com:7050
+  BatchTimeout: 2s
+  BatchSize:
+    MaxMessageCount: 10
+    AbsoluteMaxBytes: 99 MB
+    PreferredMaxBytes: 512 KB
+  EtcdRaft:
+    Consenters:
+      - Host: orderer.example.com
+        Port: 7050
+        ClientTLSCert: crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+        ServerTLSCert: crypto-config/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
+
+Application: &ApplicationDefaults
+  Organizations:
+
+Channels:
+  ProcurementChannel:
+    Consortium: SampleConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *CompanyA
+        - *CompanyB
+        - *CompanyC
+        - *SupplierX
+        - *SupplierY
+        - *SupplierZ
+
+  LogisticsChannel:
+    Consortium: SampleConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *CompanyA
+        - *CompanyB
+        - *CompanyC
+        - *SupplierX
+        - *SupplierY
+        - *SupplierZ
+        - *Logistics1
+        - *Logistics2
+
+  RegulatoryChannel:
+    Consortium: SampleConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *CompanyA
+        - *CompanyB
+        - *CompanyC
+        - *Regulatory
+
+  FinancialChannel:
+    Consortium: SampleConsortium
+    Application:
+      <<: *ApplicationDefaults
+      Organizations:
+        - *CompanyA
+        - *CompanyB
+        - *CompanyC
+        - *BankA
+        - *BankB
+
+Consortiums:
+  SampleConsortium:
+    Organizations:
+      - *CompanyA
+      - *CompanyB
+      - *CompanyC
+      - *SupplierX
+      - *SupplierY
+      - *SupplierZ
+      - *Logistics1
+      - *Logistics2
+      - *Regulatory
+      - *BankA
+      - *BankB

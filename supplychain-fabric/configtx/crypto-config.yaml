@@ -1,0 +1,38 @@
+OrdererOrgs:
+  - Name: Orderer
+    Domain: example.com
+
+PeerOrgs:
+  - Name: CompanyA
+    Domain: companyA.example.com
+    EnableNodeOUs: true
+  - Name: CompanyB
+    Domain: companyB.example.com
+    EnableNodeOUs: true
+  - Name: CompanyC
+    Domain: companyC.example.com
+    EnableNodeOUs: true
+  - Name: SupplierX
+    Domain: supplierX.example.com
+    EnableNodeOUs: true
+  - Name: SupplierY
+    Domain: supplierY.example.com
+    EnableNodeOUs: true
+  - Name: SupplierZ
+    Domain: supplierZ.example.com
+    EnableNodeOUs: true
+  - Name: Logistics1
+    Domain: logistics1.example.com
+    EnableNodeOUs: true
+  - Name: Logistics2
+    Domain: logistics2.example.com
+    EnableNodeOUs: true
+  - Name: Regulatory
+    Domain: regulatory.example.com
+    EnableNodeOUs: true
+  - Name: BankA
+    Domain: bankA.example.com
+    EnableNodeOUs: true
+  - Name: BankB
+    Domain: bankB.example.com
+    EnableNodeOUs: true

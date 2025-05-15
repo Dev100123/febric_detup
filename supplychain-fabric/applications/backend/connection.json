@@ -1,0 +1,45 @@
+{
+  "name": "SupplyChainNetwork",
+  "version": "1.0.0",
+  "client": {
+    "organization": "CompanyA",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        },
+        "orderer": "300"
+      }
+    }
+  },
+  "organizations": {
+    "CompanyA": {
+      "mspid": "CompanyAMSP",
+      "peers": ["peer0.companyA.example.com"],
+      "certificateAuthorities": ["ca.companyA.example.com"]
+    }
+  },
+  "peers": {
+    "peer0.companyA.example.com": {
+      "url": "grpc://localhost:7051",
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\n...your CA cert PEM data...\n-----END CERTIFICATE-----"
+      },
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.companyA.example.com"
+      }
+    }
+  },
+  "certificateAuthorities": {
+    "ca.companyA.example.com": {
+      "url": "https://localhost:7054",
+      "caName": "ca-companyA",
+      "tlsCACerts": {
+        "pem": "-----BEGIN CERTIFICATE-----\n...your CA cert PEM data...\n-----END CERTIFICATE-----"
+      },
+      "httpOptions": {
+        "verify": false
+      }
+    }
+  }
+}
